@@ -3,8 +3,8 @@ package top.crossoverjie.nows.nows.scan;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Function:
@@ -16,9 +16,9 @@ import java.util.Map;
 @Component
 public class ScannerFile {
 
-    private Map<String,String> allFile = new HashMap<>(16) ;
+    private List<String> allFile = new ArrayList<>(10);
 
-    public Map<String,String> getAllFile(String path){
+    public List<String> getAllFile(String path){
 
         File f = new File(path) ;
         File[] files = f.listFiles();
@@ -31,7 +31,7 @@ public class ScannerFile {
                 if (!filePath.endsWith(".md")){
                     continue;
                 }
-                allFile.put(file.getName(),filePath) ;
+                allFile.add(filePath) ;
             }
         }
 

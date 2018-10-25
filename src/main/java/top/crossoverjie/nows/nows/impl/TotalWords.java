@@ -17,6 +17,8 @@ public class TotalWords {
 
     private AtomicLong sum = new AtomicLong() ;
 
+    //private long sum = 0 ;
+
     public void sum(int count){
         sum.addAndGet(count) ;
     }

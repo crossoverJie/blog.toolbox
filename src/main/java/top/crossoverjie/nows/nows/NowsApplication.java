@@ -9,15 +9,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import top.crossoverjie.nows.nows.filter.FilterProcessManager;
 import top.crossoverjie.nows.nows.impl.TotalWords;
 import top.crossoverjie.nows.nows.scan.ScannerFile;
+import top.crossoverjie.nows.nows.thread.ScanNumTask;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 @SpringBootApplication
 public class NowsApplication implements CommandLineRunner{
@@ -32,9 +29,11 @@ public class NowsApplication implements CommandLineRunner{
 	@Autowired
 	private ScannerFile scannerFile ;
 
-
 	@Autowired
 	private TotalWords totalWords;
+
+	@Autowired
+	private ExecutorService executorService ;
 
 
 	public static void main(String[] args) throws IOException {
@@ -47,24 +46,17 @@ public class NowsApplication implements CommandLineRunner{
 
 		long start = System.currentTimeMillis();
 
-		Map<String, String> allFile = scannerFile.getAllFile(strings[0]);
+		List<String> allFile = scannerFile.getAllFile(strings[0]);
 		logger.info("allFile size=[{}]",allFile.size());
-		for (Map.Entry<String, String> entry : allFile.entrySet()) {
-			logger.info("key=[{}]  value=[{}]",entry.getKey(),entry.getValue());
-
-
-			Stream<String> stringStream = Files.lines(Paths.get(entry.getValue()), StandardCharsets.UTF_8);
-
-			List<String> collect = stringStream.collect(Collectors.toList());
-			for (String msg : collect) {
-				filterProcessManager.process(msg);
-			}
-
+		for (String msg : allFile) {
+			executorService.execute(new ScanNumTask(msg,filterProcessManager));
 		}
 
+		executorService.shutdown();
+		while (!executorService.awaitTermination(100, TimeUnit.MILLISECONDS)) {
+			logger.info("worker running");
+		}
 		long total = totalWords.total();
-
-
 		long end = System.currentTimeMillis();
 		logger.info("total sum=[{}],[{}] ms",total,end-start);
 

@@ -9,5 +9,10 @@ package top.crossoverjie.nows.nows.filter;
  */
 public interface FilterProcess {
 
+    /**
+     * 处理文本
+     * @param msg
+     * @return
+     */
     String process(String msg) ;
 }
