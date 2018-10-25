@@ -7,12 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import top.crossoverjie.nows.nows.filter.FilterProcessManager;
+import top.crossoverjie.nows.nows.impl.TotalWords;
+import top.crossoverjie.nows.nows.scan.ScannerFile;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,38 +29,44 @@ public class NowsApplication implements CommandLineRunner{
 	@Autowired
 	private FilterProcessManager filterProcessManager ;
 
+	@Autowired
+	private ScannerFile scannerFile ;
+
+
+	@Autowired
+	private TotalWords totalWords;
+
+
 	public static void main(String[] args) throws IOException {
 		SpringApplication.run(NowsApplication.class, args);
-
-		String path = "/Users/chenjie/Downloads/test/" ;
-
-
-
-
-
-		//long sum = 0 ;
-		//for (String msg : collect) {
-		//	sum = fileManager.process(msg);
-		//}
-
-
-
-
 
 	}
 
 	@Override
 	public void run(String... strings) throws Exception {
 
-		String fileName = "/Users/chenjie/Downloads/test/SSM1.md";
-		Stream<String> stringStream = Files.lines(Paths.get(fileName), StandardCharsets.UTF_8);
+		long start = System.currentTimeMillis();
 
-		List<String> collect = stringStream.collect(Collectors.toList());
-		long count = 0 ;
-		for (String s : collect) {
-			count = filterProcessManager.process(s);
+		Map<String, String> allFile = scannerFile.getAllFile(strings[0]);
+		logger.info("allFile size=[{}]",allFile.size());
+		for (Map.Entry<String, String> entry : allFile.entrySet()) {
+			logger.info("key=[{}]  value=[{}]",entry.getKey(),entry.getValue());
+
+
+			Stream<String> stringStream = Files.lines(Paths.get(entry.getValue()), StandardCharsets.UTF_8);
+
+			List<String> collect = stringStream.collect(Collectors.toList());
+			for (String msg : collect) {
+				filterProcessManager.process(msg);
+			}
 
 		}
-		logger.info("sum={}",count);
+
+		long total = totalWords.total();
+
+
+		long end = System.currentTimeMillis();
+		logger.info("total sum=[{}],[{}] ms",total,end-start);
+
 	}
 }

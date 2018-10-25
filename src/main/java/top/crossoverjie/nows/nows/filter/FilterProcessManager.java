@@ -42,12 +42,10 @@ public class FilterProcessManager {
     }
 
 
-    public long process(String msg) {
+    public void process(String msg) {
         for (FilterProcess filterProcess : filterProcesses) {
             msg = filterProcess.process(msg);
         }
         totalWords.sum(msg.toCharArray().length);
-
-        return totalWords.total();
     }
 }
