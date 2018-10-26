@@ -11,9 +11,11 @@ mvn clean package
 java -jar nows-0.0.1-SNAPSHOT.jar /xx/xx/path
 ```
 
+![](https://ws2.sinaimg.cn/large/006tNbRwly1fwlc5yrsmnj31kw09vqv5.jpg)
+
 # 扩展
 
-采用责任链模式可自定义统计方式。
+采用责任链模式可自定义统计策略。
 
 ```java
     @Bean("httpFilterProcess")
