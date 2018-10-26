@@ -50,6 +50,20 @@ public class NowsApplication implements CommandLineRunner{
 		logger.info("allFile size=[{}]",allFile.size());
 		for (String msg : allFile) {
 			executorService.execute(new ScanNumTask(msg,filterProcessManager));
+
+
+			/*Stream<String> stringStream = null;
+			try {
+				stringStream = Files.lines(Paths.get(msg), StandardCharsets.UTF_8);
+			} catch (IOException e) {
+				logger.error("IOException", e);
+			}
+
+			TimeUnit.MILLISECONDS.sleep(100);
+			List<String> collect = stringStream.collect(Collectors.toList());
+			for (String s : collect) {
+				filterProcessManager.process(s);
+			}*/
 		}
 
 		executorService.shutdown();

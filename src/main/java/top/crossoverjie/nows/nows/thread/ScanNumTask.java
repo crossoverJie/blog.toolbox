@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import top.crossoverjie.nows.nows.filter.FilterProcessManager;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -37,7 +36,8 @@ public class ScanNumTask implements Runnable {
         Stream<String> stringStream = null;
         try {
             stringStream = Files.lines(Paths.get(path), StandardCharsets.UTF_8);
-        } catch (IOException e) {
+            //TimeUnit.MILLISECONDS.sleep(100);
+        } catch (Exception e) {
             logger.error("IOException", e);
         }
 
