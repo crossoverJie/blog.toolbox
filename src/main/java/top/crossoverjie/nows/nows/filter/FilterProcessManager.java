@@ -42,6 +42,10 @@ public class FilterProcessManager {
     }
 
 
+    /**
+     * 处理
+     * @param msg
+     */
     public void process(String msg) {
         for (FilterProcess filterProcess : filterProcesses) {
             msg = filterProcess.process(msg);
