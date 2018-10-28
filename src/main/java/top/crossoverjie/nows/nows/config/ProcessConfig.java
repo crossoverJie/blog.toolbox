@@ -5,7 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import top.crossoverjie.nows.nows.filter.FilterProcess;
 import top.crossoverjie.nows.nows.impl.HttpFilterProcess;
-import top.crossoverjie.nows.nows.impl.NumberFilterProcess;
+import top.crossoverjie.nows.nows.impl.WrapFilterProcess;
 
 import java.util.concurrent.*;
 
@@ -48,7 +48,7 @@ public class ProcessConfig {
 
     @Bean("numberFilterProcess")
     public FilterProcess numberFilterProcess() {
-        return new NumberFilterProcess();
+        return new WrapFilterProcess();
     }
 
 

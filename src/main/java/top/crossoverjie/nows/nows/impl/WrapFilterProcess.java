@@ -9,7 +9,7 @@ import top.crossoverjie.nows.nows.filter.FilterProcess;
  *         Date: 2018/10/25 18:52
  * @since JDK 1.8
  */
-public class NumberFilterProcess implements FilterProcess{
+public class WrapFilterProcess implements FilterProcess{
 
 
     @Override
