@@ -1,6 +1,6 @@
 # NOWS
 
-> **Noumber Of Words**。统计你所写的博客字数，仅支持 Markdown 文件。
+> **Number Of Words**。统计你所写的博客字数，仅支持 Markdown 文件。
 
 
 # 使用
