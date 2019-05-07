@@ -55,8 +55,12 @@ public class DownloadUploadPic {
         } catch (Exception e) {
             throw e;
         } finally {
-            os.close();
-            is.close();
+            if (os != null){
+                os.close();
+            }
+            if (is != null){
+                is.close();
+            }
         }
 
     }
