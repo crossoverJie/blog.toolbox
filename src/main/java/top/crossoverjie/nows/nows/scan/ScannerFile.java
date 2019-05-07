@@ -3,8 +3,8 @@ package top.crossoverjie.nows.nows.scan;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Function:
@@ -16,9 +16,9 @@ import java.util.List;
 @Component
 public class ScannerFile {
 
-    private List<String> allFile = new ArrayList<>(10);
+    private Set<FileInfo> fileInfos = new TreeSet() ;
 
-    public List<String> getAllFile(String path){
+    public Set<FileInfo> getAllFile(String path){
 
         File f = new File(path) ;
         File[] files = f.listFiles();
@@ -31,10 +31,47 @@ public class ScannerFile {
                 if (!filePath.endsWith(".md")){
                     continue;
                 }
-                allFile.add(filePath) ;
+                FileInfo info = new FileInfo(filePath,file.lastModified());
+                fileInfos.add(info) ;
             }
         }
 
-        return allFile ;
+        return fileInfos ;
+    }
+
+
+    public final class FileInfo implements Comparable<FileInfo>{
+        private String filePath;
+        private long modifyTime ;
+
+        public FileInfo(String filePath, long modifyTime) {
+            this.filePath = filePath;
+            this.modifyTime = modifyTime;
+        }
+
+        public long getModifyTime() {
+            return modifyTime;
+        }
+
+        public void setModifyTime(long modifyTime) {
+            this.modifyTime = modifyTime;
+        }
+
+        public String getFilePath() {
+            return filePath;
+        }
+
+        public void setFilePath(String filePath) {
+            this.filePath = filePath;
+        }
+
+        @Override
+        public int compareTo(FileInfo info) {
+            if (info.modifyTime < this.modifyTime){
+                return -1;
+            }else {
+                return 1 ;
+            }
+        }
     }
 }

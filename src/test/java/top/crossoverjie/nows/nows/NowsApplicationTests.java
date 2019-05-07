@@ -1,13 +1,12 @@
 package top.crossoverjie.nows.nows;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.File;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest
 public class NowsApplicationTests {
 
@@ -46,6 +45,23 @@ public class NowsApplicationTests {
 
 			}
 		}
+	}
+
+
+	@Test
+	public void picMatch(){
+		int count = 0;
+		String str="![](https://ws3.sinaimg.cn/large/006tKfTcly1g0mh751dkxj30qt087752.jpg)";
+		String pattern="https?://.+\\.(jpg|gif|png)";
+
+		Pattern r=Pattern.compile(pattern);
+		Matcher m=r.matcher(str);
+		while( m.find() )
+		{
+			count++;
+			System.out.println( "匹配项" + count+"：" + m.group() ); //group方法返回由以前匹配操作所匹配的输入子序列。
+		}
+		System.out.println( "匹配个数为"+count );
 	}
 
 }
