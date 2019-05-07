@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>top.crossoverjie.nows</groupId>
-	<artifactId>nows</artifactId>
+	<artifactId>blog.toolbox</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>nows</name>
-	<description>Demo project for Spring Boot</description>
+	<name>blog.toolbox</name>
+	<description>blog.toolbox</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
