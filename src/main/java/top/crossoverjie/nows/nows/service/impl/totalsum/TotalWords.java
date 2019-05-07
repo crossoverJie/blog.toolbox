@@ -1,4 +1,4 @@
-package top.crossoverjie.nows.nows.impl;
+package top.crossoverjie.nows.nows.service.impl.totalsum;
 
 import org.springframework.stereotype.Component;
 

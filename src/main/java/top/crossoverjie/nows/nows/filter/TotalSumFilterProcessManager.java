@@ -1,8 +1,10 @@
 package top.crossoverjie.nows.nows.filter;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.crossoverjie.nows.nows.impl.TotalWords;
+import top.crossoverjie.nows.nows.service.impl.totalsum.TotalWords;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
@@ -17,8 +19,8 @@ import java.util.List;
  * @since JDK 1.8
  */
 @Service
-public class FilterProcessManager {
-
+public class TotalSumFilterProcessManager extends AbstractFilterProcess{
+    private static Logger logger = LoggerFactory.getLogger(TotalSumFilterProcessManager.class);
     @Autowired
     private TotalWords totalWords;
 
@@ -30,13 +32,16 @@ public class FilterProcessManager {
 
     private List<FilterProcess> filterProcesses = new ArrayList<>(10);
 
+
     @PostConstruct
+    @Override
     public void start() {
         this.addProcess(numberFilterProcess)
                 .addProcess(httpFilterProcess);
     }
 
-    public FilterProcessManager addProcess(FilterProcess process) {
+    @Override
+    public AbstractFilterProcess addProcess(FilterProcess process) {
         filterProcesses.add(process);
         return this;
     }
@@ -46,10 +51,17 @@ public class FilterProcessManager {
      * 处理
      * @param msg
      */
-    public void process(String msg) {
+    @Override
+    public String process(String msg) {
         for (FilterProcess filterProcess : filterProcesses) {
             msg = filterProcess.process(msg);
         }
         totalWords.sum(msg.toCharArray().length);
+        //logger.info("统计字数任务");
+        return msg;
     }
+
+
+
+
 }

@@ -1,0 +1,65 @@
+package top.crossoverjie.nows.nows.filter;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.PostConstruct;
+import javax.annotation.Resource;
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Function:替换图片
+ *
+ * @author crossoverJie
+ * Date: 2019/05/05 23:53
+ * @since JDK 1.8
+ */
+@Service
+public class FixPicFilterProcessManager extends AbstractFilterProcess {
+    private static Logger logger = LoggerFactory.getLogger(FixPicFilterProcessManager.class);
+
+
+    @Resource(name = "picFilterProcess")
+    private FilterProcess picFilterProcess;
+
+    @Resource(name = "ignorePrefixFilterProcess")
+    private FilterProcess ignorePrefixFilterProcess;
+
+    private List<FilterProcess> filterProcesses = new ArrayList<>(4);
+
+
+    @PostConstruct
+    @Override
+    public void start() {
+        this.addProcess(picFilterProcess)
+                .addProcess(ignorePrefixFilterProcess)
+        ;
+    }
+
+    @Override
+    public AbstractFilterProcess addProcess(FilterProcess process) {
+        filterProcesses.add(process);
+        return this;
+    }
+
+
+    /**
+     * 处理
+     *
+     * @param msg
+     */
+    @Override
+    public String process(String msg) {
+
+        for (FilterProcess filterProcess : filterProcesses) {
+            msg = filterProcess.process(msg);
+        }
+
+        return msg;
+        //logger.info("替换图片任务");
+    }
+
+
+}
