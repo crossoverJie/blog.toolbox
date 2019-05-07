@@ -15,7 +15,7 @@ java -jar nows-0.0.1-SNAPSHOT.jar --app.downLoad.path=/xx/img /xx/xx/path 100
 
 
 ## 字数统计
-> **Number Of Words**。统计你所写的博客字数，仅支持 Markdown 文件。
+> 统计你所写的博客字数，仅支持 Markdown 文件。
 
 
 # 使用

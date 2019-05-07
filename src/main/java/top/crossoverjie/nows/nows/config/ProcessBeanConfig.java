@@ -2,6 +2,7 @@ package top.crossoverjie.nows.nows.config;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import okhttp3.OkHttpClient;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import top.crossoverjie.nows.nows.filter.FilterProcess;
@@ -22,16 +23,15 @@ import java.util.concurrent.*;
 @Configuration
 public class ProcessBeanConfig {
 
+    @Value("${app.thread}")
     private int corePoolSize = 2;
-
-    private int maxPoolSize = 2;
 
     @Bean
     public ExecutorService sendMessageExecutor() {
         ThreadFactory namedThreadFactory = new ThreadFactoryBuilder()
                 .setNameFormat("task-%d").build();
 
-        ExecutorService executor = new ThreadPoolExecutor(corePoolSize, maxPoolSize,
+        ExecutorService executor = new ThreadPoolExecutor(corePoolSize, corePoolSize,
                 0L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(1024), namedThreadFactory, new ThreadPoolExecutor.AbortPolicy());
 
