@@ -92,7 +92,7 @@ public class DownloadUploadPic {
             }catch (Exception e){
                 logger.error("上传图片[{}]失败 res=[{}]",fileName,body.string());
                 errorTime ++;
-                TimeUnit.SECONDS.sleep(2);
+                TimeUnit.SECONDS.sleep(1);
                 return upload(fileName, errorTime);
             }finally {
                 body.close();
