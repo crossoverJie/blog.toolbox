@@ -11,9 +11,9 @@ public class DownloadPicTest {
     @Test
     public void download() throws Exception {
 
-        String path = "/Users/chenjie/Documents/blog-img/006tNbRwgy1fundztgw7ug30go08gx6s-min.gif";
+        String path = "/Users/chenjie/Documents/blog-img/006tKfTcly1fr3a3xwslqj319g10cthl.jpg";
 
-        //DownloadUploadPic.download("https://ws2.sinaimg.cn/large/006tNbRwgy1fundqlh99ug30go0cpe8a.gif", path);
+        DownloadUploadPic.download("https://ws4.sinaimg.cn/large/006tKfTcly1fr3a3xwslqj319g10cthl.jpg", path);
 
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), new File(path));
         OkHttpClient httpClient = new OkHttpClient().newBuilder()
