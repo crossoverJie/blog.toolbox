@@ -58,15 +58,16 @@ public class NowsApplication implements CommandLineRunner {
         if (strings.length == 1) {
             fileCount = Integer.parseInt(strings[0]);
         }
-        if (config.getAppModel().equals(BaseConstants.FIX_PIC)) {
+        if (config.getAppModel().equals(BaseConstants.TOTAL_WORDS)) {
+            filterProcessManager = SpringBeanFactory.getBean(TotalSumFilterProcessManager.class);
+            resultService = SpringBeanFactory.getBean(TotalSumResultServiceImpl.class);
+            ((TotalSumResultServiceImpl) resultService).setCurrentTime();
+
+        } else {
             filterProcessManager = SpringBeanFactory.getBean(FixPicFilterProcessManager.class);
             resultService = SpringBeanFactory.getBean(PicResultServiceImpl.class);
             fileCount = Integer.parseInt(strings[1]);
             ((PicResultServiceImpl) resultService).setCurrentTime();
-        } else {
-            filterProcessManager = SpringBeanFactory.getBean(TotalSumFilterProcessManager.class);
-            resultService = SpringBeanFactory.getBean(TotalSumResultServiceImpl.class);
-            ((TotalSumResultServiceImpl) resultService).setCurrentTime();
         }
 
         Set<ScannerFile.FileInfo> allFile = scannerFile.getAllFile(strings[0]);

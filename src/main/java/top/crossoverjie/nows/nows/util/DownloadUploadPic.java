@@ -34,6 +34,11 @@ public class DownloadUploadPic {
     }
 
     public static void download(String urlString, String fileName) throws IOException {
+        File file = new File(fileName) ;
+        if (file.exists()){
+            logger.info("[{}]已下载完毕",fileName);
+            return;
+        }
         URL url = null;
         OutputStream os = null;
         InputStream is = null;

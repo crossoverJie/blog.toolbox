@@ -13,7 +13,7 @@
 ```shell
 git clone https://github.com/crossoverJie/blog.toolbox
 mvn clean package
-java -jar nows-0.0.1-SNAPSHOT.jar --app.downLoad.path=/xx/img /xx/xx/path 100
+java -jar nows-0.0.1-SNAPSHOT.jar /xx/xx/path 100 --app.downLoad.path=/xx/img
 ```
 
 
