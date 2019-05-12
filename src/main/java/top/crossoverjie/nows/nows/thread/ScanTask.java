@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import top.crossoverjie.nows.nows.config.AppConfig;
 import top.crossoverjie.nows.nows.constants.BaseConstants;
 import top.crossoverjie.nows.nows.filter.AbstractFilterProcess;
+import top.crossoverjie.nows.nows.service.UploadPicService;
 import top.crossoverjie.nows.nows.util.DownloadUploadPic;
 import top.crossoverjie.nows.nows.util.SpringBeanFactory;
 
@@ -36,10 +37,13 @@ public class ScanTask implements Runnable {
 
     private AppConfig appConfig;
 
+    private UploadPicService uploadPicService ;
+
     public ScanTask(String path, AbstractFilterProcess filterProcessManager) {
         this.path = path;
         this.filterProcessManager = filterProcessManager;
         this.appConfig = SpringBeanFactory.getBean(AppConfig.class);
+        uploadPicService = (UploadPicService) SpringBeanFactory.getBean("uploadPicService");
     }
 
     @Override
@@ -68,6 +72,11 @@ public class ScanTask implements Runnable {
 
     }
 
+    /**
+     * 替换本地文本
+     * @param path
+     * @param picMapping
+     */
     private void replacePic(String path, Map<String, String> picMapping)  {
         if (appConfig.getAppModel().equals(BaseConstants.FixPic.BACK_UP_MODEL)){
             return;
@@ -165,7 +174,7 @@ public class ScanTask implements Runnable {
             }
 
             try {
-                String uploadAddress = DownloadUploadPic.upload(path,0);
+                String uploadAddress = uploadPicService.upload(path);
                 if (uploadAddress == null){
                     logger.error("上传图片失败,跳过 fileName=[{}]", path);
                     continue;
