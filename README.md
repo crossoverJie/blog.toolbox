@@ -13,7 +13,7 @@
 ```shell
 git clone https://github.com/crossoverJie/blog.toolbox
 mvn clean package
-java -jar nows-0.0.1-SNAPSHOT.jar /xx/xx/path 100 --app.downLoad.path=/xx/img
+java -jar blog.toolbox-0.0.2.jar /xx/xx/path 100 --app.downLoad.path=/xx/img
 ```
 
 
@@ -61,7 +61,7 @@ java -jar blog.toolbox-0.0.2.jar /xxx/path 200 --app.model=3 --app.downLoad.path
 ```shell
 git clone https://github.com/crossoverJie/blog.toolbox
 mvn clean package
-java -jar nows-0.0.1-SNAPSHOT.jar /xx/xx/path
+java -jar blog.toolbox-0.0.2.jar /xx/xx/path
 ```
 
 ![](https://ws2.sinaimg.cn/large/006tNbRwly1fwlc5yrsmnj31kw09vqv5.jpg)
@@ -88,7 +88,3 @@ java -jar nows-0.0.1-SNAPSHOT.jar /xx/xx/path
                 .addProcess(httpFilterProcess);
     }
 ```
-
-# 性能
-
-利用多线程读取效率明显提升。
