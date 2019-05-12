@@ -46,10 +46,10 @@ java -jar blog.toolbox-0.0.2.jar /xxx/path 10 --app.model=2 --app.pic.upload.way
 
 ### 备份模式
 
-改模式用于备份博客中的图片到本地，以防丢失。
+该模式用于备份博客中的图片到本地，以防丢失。
 
 ```java
-java -jar blog.toolbox-0.0.2.jar /xxx/path 200 --app.model=3
+java -jar blog.toolbox-0.0.2.jar /xxx/path 200 --app.model=3 --app.downLoad.path=/backup/
 ```
 
 ## 字数统计
