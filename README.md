@@ -24,6 +24,34 @@ java -jar nows-0.0.1-SNAPSHOT.jar /xx/xx/path 100 --app.downLoad.path=/xx/img
 - `/xx/xx/path` 则是扫描 `.md` 文件的目录，会递归扫描所有出所有文件。
 - 100 则是需要替换文件的数量，默认是按照文件修改时间排序。
 
+### 自定义上传策略
+
+内置上传到免费图床 `SM.MS` 大家也可自定义上传地址，只需要实现 `top.crossoverjie.nows.nows.service.UploadPicService`，如下所示：
+
+```java
+public class TestUploadServiceImpl implements UploadPicService{
+
+    @Override
+    public String upload(String path) throws Exception {
+        return "https://crossoverjie.top/uploads/crossoverjie.jpg";
+    }
+}
+```
+
+返回一个上传地址即可；同时在启动应用时指定其上传策略：
+
+```java
+java -jar blog.toolbox-0.0.2.jar /xxx/path 10 --app.model=2 --app.pic.upload.way=top.crossoverjie.nows.nows.service.impl.fixpic.upload.way.TestUploadServiceImpl
+```
+
+### 备份模式
+
+改模式用于备份博客中的图片到本地，以防丢失。
+
+```java
+java -jar blog.toolbox-0.0.2.jar /xxx/path 200 --app.model=3
+```
+
 ## 字数统计
 > 统计你所写的博客字数，仅支持 Markdown 文件。
 
