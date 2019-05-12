@@ -48,4 +48,13 @@ public class DownloadPicTest {
         path = path.substring(index +1) ;
         System.out.println(path);
     }
+
+    @Test
+    public void str2(){
+        String path = "/Users/chenjie/Documents/Hexo/source/_posts/distributed/distributed-discovery-zk.md";
+
+        int index = path.lastIndexOf("/");
+        path = path.substring(index +1) ;
+        System.out.println(path);
+    }
 }

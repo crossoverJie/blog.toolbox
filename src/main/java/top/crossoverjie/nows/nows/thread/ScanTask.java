@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import top.crossoverjie.nows.nows.config.AppConfig;
 import top.crossoverjie.nows.nows.constants.BaseConstants;
 import top.crossoverjie.nows.nows.filter.AbstractFilterProcess;
+import top.crossoverjie.nows.nows.service.UploadPicService;
 import top.crossoverjie.nows.nows.util.DownloadUploadPic;
 import top.crossoverjie.nows.nows.util.SpringBeanFactory;
 
@@ -36,10 +37,13 @@ public class ScanTask implements Runnable {
 
     private AppConfig appConfig;
 
+    private UploadPicService uploadPicService ;
+
     public ScanTask(String path, AbstractFilterProcess filterProcessManager) {
         this.path = path;
         this.filterProcessManager = filterProcessManager;
         this.appConfig = SpringBeanFactory.getBean(AppConfig.class);
+        uploadPicService = (UploadPicService) SpringBeanFactory.getBean("uploadPicService");
     }
 
     @Override
@@ -51,25 +55,32 @@ public class ScanTask implements Runnable {
             logger.error("IOException", e);
         }
 
-        if (appConfig.getAppModel().equals(BaseConstants.FIX_PIC)) {
-
-            //下载旧图及上传新图
-            Map<String, String> picMapping = downUpPic(stringStream);
-
-            //替换本地文本
-            replacePic(path,picMapping) ;
-
-
-        } else {
+        if (appConfig.getAppModel().equals(BaseConstants.TOTAL_WORDS)) {
             List<String> collect = stringStream.collect(Collectors.toList());
             for (String msg : collect) {
                 filterProcessManager.process(msg);
             }
+
+        } else {
+
+            //下载旧图及上传新图
+            Map<String, String> picMapping = downUpPic(stringStream,path);
+
+            //替换本地文本
+            replacePic(path,picMapping) ;
         }
 
     }
 
+    /**
+     * 替换本地文本
+     * @param path
+     * @param picMapping
+     */
     private void replacePic(String path, Map<String, String> picMapping)  {
+        if (appConfig.getAppModel().equals(BaseConstants.FixPic.BACK_UP_MODEL)){
+            return;
+        }
 
         for (Map.Entry<String, String> pic : picMapping.entrySet()) {
             String oldPic = pic.getKey();
@@ -126,7 +137,15 @@ public class ScanTask implements Runnable {
 
     }
 
-    private Map<String,String> downUpPic(Stream<String> stringStream) {
+    /**
+     * 下载和上传图片
+     * @param stringStream
+     * @return
+     */
+    private Map<String,String> downUpPic(Stream<String> stringStream,String filePath) {
+        //文件前缀
+        int index = filePath.lastIndexOf("/");
+        filePath = filePath.substring(index +1) ;
 
         Map<String ,String> picMapping = new HashMap<>(16) ;
 
@@ -141,7 +160,7 @@ public class ScanTask implements Runnable {
         }
 
         for (String pic : pics) {
-            String path = appConfig.getDownLoadPath() + "/" + pic.substring(pic.lastIndexOf("/") + 1);
+            String path = appConfig.getDownLoadPath() + "/" + filePath + "---" + pic.substring(pic.lastIndexOf("/") + 1);
             try {
                 DownloadUploadPic.download(pic, path);
                 logger.info("下载[{}]图片成功,地址=[{}]", pic, path);
@@ -149,8 +168,13 @@ public class ScanTask implements Runnable {
                 logger.error("下载图片失败 fileName=[{}]", path, e);
             }
 
+            //只做备份，不做上传
+            if (appConfig.getAppModel().equals(BaseConstants.FixPic.BACK_UP_MODEL)){
+                continue;
+            }
+
             try {
-                String uploadAddress = DownloadUploadPic.upload(path,0);
+                String uploadAddress = uploadPicService.upload(path);
                 if (uploadAddress == null){
                     logger.error("上传图片失败,跳过 fileName=[{}]", path);
                     continue;

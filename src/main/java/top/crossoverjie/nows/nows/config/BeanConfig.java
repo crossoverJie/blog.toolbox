@@ -2,10 +2,12 @@ package top.crossoverjie.nows.nows.config;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import okhttp3.OkHttpClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import top.crossoverjie.nows.nows.filter.FilterProcess;
+import top.crossoverjie.nows.nows.service.UploadPicService;
 import top.crossoverjie.nows.nows.service.impl.fixpic.IgnorePrefixFilterProcess;
 import top.crossoverjie.nows.nows.service.impl.fixpic.PicFilterProcess;
 import top.crossoverjie.nows.nows.service.impl.totalsum.HttpFilterProcess;
@@ -21,10 +23,13 @@ import java.util.concurrent.*;
  * @since JDK 1.8
  */
 @Configuration
-public class ProcessBeanConfig {
+public class BeanConfig {
 
     @Value("${app.thread}")
     private int corePoolSize = 2;
+
+    @Autowired
+    private AppConfig appConfig ;
 
     @Bean
     public ExecutorService sendMessageExecutor() {
@@ -74,4 +79,11 @@ public class ProcessBeanConfig {
         return builder.build();
     }
 
+
+    @Bean("uploadPicService")
+    public UploadPicService buildUploadBean() throws Exception {
+        String uploadWay = appConfig.getUploadWay();
+        UploadPicService uploadPicService = (UploadPicService) Class.forName(uploadWay).newInstance() ;
+        return uploadPicService ;
+    }
 }

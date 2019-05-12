@@ -18,11 +18,18 @@ public class AppConfig {
     @Value("${app.downLoad.path}")
     private String downLoadPath ;
 
+    @Value("${app.pic.upload.way}")
+    private String uploadWay ;
+
     public String getAppModel() {
         return appModel;
     }
 
     public String getDownLoadPath() {
         return downLoadPath;
+    }
+
+    public String getUploadWay() {
+        return uploadWay;
     }
 }
