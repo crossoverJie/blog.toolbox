@@ -12,7 +12,7 @@
 
 ```shell
 git clone https://github.com/crossoverJie/blog.toolbox
-mvn clean package
+mvn -Dmaven.test.skip=true clean package
 java -jar blog.toolbox-0.0.2.jar /xx/xx/path 100 --app.downLoad.path=/xx/img
 ```
 
@@ -60,7 +60,7 @@ java -jar blog.toolbox-0.0.2.jar /xxx/path 200 --app.model=3 --app.downLoad.path
 
 ```shell
 git clone https://github.com/crossoverJie/blog.toolbox
-mvn clean package
+mvn -Dmaven.test.skip=true clean package
 java -jar blog.toolbox-0.0.2.jar /xx/xx/path
 ```
 
