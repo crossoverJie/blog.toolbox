@@ -53,7 +53,7 @@ public class DownloadPicTest {
     public void str2(){
         String path = "/Users/chenjie/Documents/Hexo/source/_posts/distributed/distributed-discovery-zk.md";
 
-        int index = path.lastIndexOf("/");
+        int index = path.lastIndexOf(System.getProperty("file.separator"));
         path = path.substring(index +1) ;
         System.out.println(path);
     }
