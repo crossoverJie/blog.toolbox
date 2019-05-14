@@ -144,7 +144,7 @@ public class ScanTask implements Runnable {
      */
     private Map<String,String> downUpPic(Stream<String> stringStream,String filePath) {
         //文件前缀
-        int index = filePath.lastIndexOf("/");
+        int index = filePath.lastIndexOf(System.getProperty("file.separator"));
         filePath = filePath.substring(index +1) ;
 
         Map<String ,String> picMapping = new HashMap<>(16) ;
