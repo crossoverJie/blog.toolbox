@@ -11,9 +11,9 @@ public class DownloadPicTest {
     @Test
     public void download() throws Exception {
 
-        String path = "/Users/chenjie/Documents/blog-img/006tKfTcly1fr3a3xwslqj319g10cthl.jpg";
+        String path = "/Users/chenjie/Documents/blog-img/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg";
 
-        DownloadUploadPic.download("https://ws4.sinaimg.cn/large/006tKfTcly1fr3a3xwslqj319g10cthl.jpg", path);
+        DownloadUploadPic.download("http://ww1.sinaimg.cn/large/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg", path);
 
         RequestBody fileBody = RequestBody.create(MediaType.parse("image/png"), new File(path));
         OkHttpClient httpClient = new OkHttpClient().newBuilder()
@@ -24,14 +24,14 @@ public class DownloadPicTest {
                 .build();
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("smfile", "image", fileBody)
+                .addFormDataPart("smfile", "i", fileBody)
 
                 .build();
 
 
         Request request = new Request.Builder()
                 .url("https://sm.ms/api/upload")
-                .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36")
+                .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.157 Safari/537.36")
                 .post(requestBody)
                 .build();
 
