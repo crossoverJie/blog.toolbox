@@ -12,7 +12,7 @@ import top.crossoverjie.nows.nows.filter.FilterProcess;
 public class IgnorePrefixFilterProcess implements FilterProcess {
     @Override
     public String process(String msg) {
-        if (msg != null && (msg.startsWith("https://ws") || msg.startsWith("http://ww")) ){
+        if (msg != null && (msg.startsWith("https://ws") || msg.startsWith("http://ww") || msg.startsWith("http://wx")) ){
             return msg ;
         }
         return null;
