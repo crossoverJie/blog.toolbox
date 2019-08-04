@@ -7,12 +7,13 @@ import org.slf4j.LoggerFactory;
 import top.crossoverjie.nows.nows.pojo.SMResponse;
 
 import java.io.*;
+import java.net.HttpRetryException;
+import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Function:图片下载
+ * Function: 图片下载上传
  *
  * @author crossoverJie
  * Date: 2019-05-07 00:14
@@ -22,31 +23,41 @@ public class DownloadUploadPic {
 
     private static Logger logger = LoggerFactory.getLogger(DownloadUploadPic.class);
 
-    private static OkHttpClient httpClient ;
+    private static OkHttpClient httpClient;
 
     static {
         httpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10,TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
     }
 
     public static void download(String urlString, String fileName) throws IOException {
-        File file = new File(fileName) ;
-        if (file.exists()){
-            logger.info("[{}]已下载完毕",fileName);
-            return;
-        }
-        URL url = null;
+        URL url;
         OutputStream os = null;
         InputStream is = null;
         try {
             url = new URL(urlString);
-            URLConnection con = url.openConnection();
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            int responseCode = con.getResponseCode();
+            // 如果状态码是 301，可能 url 已更新为 https 格式，将 url 转换为 https 格式
+            if (responseCode == HttpURLConnection.HTTP_MOVED_PERM) {
+                urlString = urlString.replace("http:", "https:");
+                url = new URL(urlString);
+                con = (HttpURLConnection) url.openConnection();
+                responseCode = con.getResponseCode();
+            }
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                url = new URL(urlString);
+                con = (HttpURLConnection) url.openConnection();
+            } else {
+                throw new HttpRetryException("HTTP状态码为 " + responseCode + "，请检查！", responseCode);
+            }
             // 输入流
             is = con.getInputStream();
+
             // 1K的数据缓冲
             byte[] bs = new byte[1024];
             // 读取到的数据长度
@@ -57,25 +68,23 @@ public class DownloadUploadPic {
             while ((len = is.read(bs)) != -1) {
                 os.write(bs, 0, len);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             throw e;
         } finally {
-            if (os != null){
+            if (os != null) {
                 os.close();
             }
-            if (is != null){
+            if (is != null) {
                 is.close();
             }
         }
 
     }
 
+    public static String upload(String fileName, int errorTime) throws IOException, InterruptedException {
 
-
-    public static String upload(String fileName,int errorTime) throws IOException, InterruptedException {
-
-        if (errorTime == 5){
-            logger.error("[{}]上传失败次数达到上限{}次",fileName,errorTime);
+        if (errorTime == 5) {
+            logger.error("[{}] 上传失败次数达到上限 {} 次", fileName, errorTime);
             return null;
         }
 
@@ -92,22 +101,22 @@ public class DownloadUploadPic {
                 .post(requestBody)
                 .build();
 
-        Response response = httpClient.newCall(request).execute() ;
-        if (response.isSuccessful()){
+        Response response = httpClient.newCall(request).execute();
+        if (response.isSuccessful()) {
             ResponseBody body = response.body();
             try {
                 SMResponse smResponse = JSON.parseObject(body.string(), SMResponse.class);
                 return smResponse.getData().getUrl();
-            }catch (Exception e){
-                logger.error("上传图片[{}]失败 res=[{}]",fileName,body.string());
-                errorTime ++;
+            } catch (Exception e) {
+                logger.error("上传图片失败，fileName = [{}]，res = [{}]", fileName, body.string());
+                errorTime++;
                 TimeUnit.SECONDS.sleep(1);
                 return upload(fileName, errorTime);
-            }finally {
+            } finally {
                 body.close();
             }
         }
-        return null ;
+        return null;
     }
 }
 
