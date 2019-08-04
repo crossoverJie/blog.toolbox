@@ -13,13 +13,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class AppConfig {
     @Value("${app.model}")
-    private String appModel ;
+    private String appModel;
 
     @Value("${app.downLoad.path}")
-    private String downLoadPath ;
+    private String downLoadPath;
 
     @Value("${app.pic.upload.way}")
-    private String uploadWay ;
+    private String uploadWay;
+
+    @Value("${app.filterUrl}")
+    private String filterUrl;
 
     public String getAppModel() {
         return appModel;
@@ -31,5 +34,9 @@ public class AppConfig {
 
     public String getUploadWay() {
         return uploadWay;
+    }
+
+    public String getFilterUrl() {
+        return filterUrl;
     }
 }
