@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Function:图片过滤器
+ * Function: 图片过滤器
  *
  * @author crossoverJie
  * Date: 2019-05-05 23:13
@@ -14,7 +14,8 @@ import java.util.regex.Pattern;
  */
 public class PicFilterProcess implements FilterProcess {
 
-    private String pattern = "https?://.+\\.(jpg|gif|png)";
+    // 匹配图片地址的正则表达式
+    private String pattern = "https?:\\/\\/(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{1,256}\\.[a-zA-Z0-9()]{1,6}\\b([-a-zA-Z0-9()@:%_\\+.~#?&//=]*)\\.(jpg|gif|png)";
 
     @Override
     public String process(String msg) {
