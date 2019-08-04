@@ -22,6 +22,19 @@ import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * 替换模式执行顺序：
+ * 1. 遍历目录下所有文章（一个文章一个任务）
+ * 2. 遍历查找当前文章的每一行，看是否有图片链接，有就返回，没有返回 null
+ * 3. 如果链接为需要过滤链接，过滤掉，否则加入待下载 list
+ * 4. 依次下载当前文章需要下载的每个图片链接，如果图片在本地已经存在（原来下载了，没有上传成功，或者没有替换成功，文章中依旧是原图片链接），跳过下载
+ * 5. 但还是上传到图床，因为此图片链接还是原图片链接，新图片链接会被过滤
+ * 6. 上传成功，将原图片链接与新图床链接映射
+ * 7. 替换当前文章的所有原图片链接
+ * 8. 循环（执行第二个任务）
+ *
+ * 备份模式只有1、2、3、4
+ */
 @SpringBootApplication
 public class NowsApplication implements CommandLineRunner {
 
@@ -58,6 +71,7 @@ public class NowsApplication implements CommandLineRunner {
         if (strings.length == 1) {
             fileCount = Integer.parseInt(strings[0]);
         }
+
         if (config.getAppModel().equals(BaseConstants.TOTAL_WORDS)) {
             filterProcessManager = SpringBeanFactory.getBean(TotalSumFilterProcessManager.class);
             resultService = SpringBeanFactory.getBean(TotalSumResultServiceImpl.class);
@@ -71,7 +85,7 @@ public class NowsApplication implements CommandLineRunner {
         }
 
         Set<ScannerFile.FileInfo> allFile = scannerFile.getAllFile(strings[0]);
-        logger.info("allFile size=[{}]", allFile.size());
+        logger.info("allFile size = [{}]", allFile.size());
         if (fileCount > allFile.size()) {
             fileCount = allFile.size();
         }
