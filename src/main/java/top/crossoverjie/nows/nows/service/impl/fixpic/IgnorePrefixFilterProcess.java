@@ -16,7 +16,7 @@ public class IgnorePrefixFilterProcess implements FilterProcess {
     @Override
     public String process(String msg) {
         // 如果文章中图片已经是图床地址（filterUrl），避免重复上传，所以过滤掉（return null）
-        if (msg != null && (!msg.startsWith(SpringBeanFactory.getBean(AppConfig.class).getFilterUrl()))) {
+        if (msg != null && !msg.startsWith(SpringBeanFactory.getBean(AppConfig.class).getFilterUrl())) {
             return msg;
         }
         return null;
