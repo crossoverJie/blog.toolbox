@@ -12,5 +12,5 @@ public interface ResultService {
     /**
      * 任务执行完毕
      */
-    void end() ;
+    void end();
 }

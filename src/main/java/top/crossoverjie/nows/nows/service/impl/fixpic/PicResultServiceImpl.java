@@ -21,9 +21,10 @@ public class PicResultServiceImpl implements ResultService {
     public void setCurrentTime() {
         TIME_THREAD_LOCAL.set(System.currentTimeMillis());
     }
+
     @Override
     public void end() {
         long end = System.currentTimeMillis();
-        logger.info("任务完成，耗时[{}] ms", end - TIME_THREAD_LOCAL.get());
+        logger.info("任务完成，耗时 [{}] ms", end - TIME_THREAD_LOCAL.get());
     }
 }

@@ -11,6 +11,7 @@ public interface UploadPicService {
 
     /**
      * 上传图片
+     *
      * @param path 图片下载后的本地地址
      * @return
      * @throws Exception

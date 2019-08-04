@@ -15,11 +15,11 @@ import java.util.List;
  * Function:
  *
  * @author crossoverJie
- *         Date: 2018/10/25 18:53
+ * Date: 2018/10/25 18:53
  * @since JDK 1.8
  */
 @Service
-public class TotalSumFilterProcessManager extends AbstractFilterProcess{
+public class TotalSumFilterProcessManager extends AbstractFilterProcess {
     private static Logger logger = LoggerFactory.getLogger(TotalSumFilterProcessManager.class);
     @Autowired
     private TotalWords totalWords;
@@ -49,6 +49,7 @@ public class TotalSumFilterProcessManager extends AbstractFilterProcess{
 
     /**
      * 处理
+     *
      * @param msg
      */
     @Override
@@ -60,8 +61,4 @@ public class TotalSumFilterProcessManager extends AbstractFilterProcess{
         //logger.info("统计字数任务");
         return msg;
     }
-
-
-
-
 }
