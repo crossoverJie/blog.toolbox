@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Function:替换图片
+ * Function: 替换图片
  *
  * @author crossoverJie
  * Date: 2019/05/05 23:53
@@ -22,7 +22,6 @@ import java.util.List;
 @Service
 public class FixPicFilterProcessManager extends AbstractFilterProcess {
     private static Logger logger = LoggerFactory.getLogger(FixPicFilterProcessManager.class);
-
 
     @Resource(name = "picFilterProcess")
     private FilterProcess picFilterProcess;
@@ -33,15 +32,15 @@ public class FixPicFilterProcessManager extends AbstractFilterProcess {
     private List<FilterProcess> filterProcesses = new ArrayList<>(4);
 
     @Autowired
-    private AppConfig config ;
+    private AppConfig config;
 
     @PostConstruct
     @Override
     public void start() {
         this.addProcess(picFilterProcess);
 
-        //非备份模式下才要过滤图片
-        if (!config.getAppModel().equals(BaseConstants.FixPic.BACK_UP_MODEL)){
+        // 非备份模式下才要过滤图片
+        if (!config.getAppModel().equals(BaseConstants.FixPic.BACK_UP_MODEL)) {
             this.addProcess(ignorePrefixFilterProcess);
         }
     }
@@ -68,6 +67,4 @@ public class FixPicFilterProcessManager extends AbstractFilterProcess {
         return msg;
         //logger.info("替换图片任务");
     }
-
-
 }

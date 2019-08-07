@@ -13,7 +13,7 @@ import top.crossoverjie.nows.nows.util.DownloadUploadPic;
 public class SMMSUploadServiceImpl implements UploadPicService {
     @Override
     public String upload(String path) throws Exception {
-        String uploadAddress = DownloadUploadPic.upload(path,0);
-        return uploadAddress ;
+        String uploadAddress = DownloadUploadPic.upload(path, 0);
+        return uploadAddress;
     }
 }

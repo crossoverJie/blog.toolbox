@@ -14,6 +14,7 @@ public abstract class AbstractFilterProcess {
 
     /**
      * 加入责任链
+     *
      * @param process
      * @return
      */
@@ -21,6 +22,7 @@ public abstract class AbstractFilterProcess {
 
     /**
      * 执行数据处理
+     *
      * @param msg
      * @return
      */

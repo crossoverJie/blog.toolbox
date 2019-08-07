@@ -19,7 +19,7 @@ import java.util.concurrent.*;
  * Function:
  *
  * @author crossoverJie
- *         Date: 2018/10/25 22:14
+ * Date: 2018/10/25 22:14
  * @since JDK 1.8
  */
 @Configuration
@@ -29,7 +29,7 @@ public class BeanConfig {
     private int corePoolSize = 2;
 
     @Autowired
-    private AppConfig appConfig ;
+    private AppConfig appConfig;
 
     @Bean
     public ExecutorService sendMessageExecutor() {
@@ -67,6 +67,7 @@ public class BeanConfig {
 
     /**
      * http client
+     *
      * @return okHttp
      */
     @Bean
@@ -74,7 +75,7 @@ public class BeanConfig {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         builder.connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10,TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true);
         return builder.build();
     }
@@ -83,7 +84,7 @@ public class BeanConfig {
     @Bean("uploadPicService")
     public UploadPicService buildUploadBean() throws Exception {
         String uploadWay = appConfig.getUploadWay();
-        UploadPicService uploadPicService = (UploadPicService) Class.forName(uploadWay).newInstance() ;
-        return uploadPicService ;
+        UploadPicService uploadPicService = (UploadPicService) Class.forName(uploadWay).newInstance();
+        return uploadPicService;
     }
 }

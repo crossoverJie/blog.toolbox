@@ -6,11 +6,19 @@ import org.junit.Test;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
-public class DownloadPicTest {
+public class DownloadUploadPicTest {
 
     @Test
     public void download() throws Exception {
 
+        String path = "/Users/chenjie/Documents/blog-img/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg";
+//        String path = "E:/GitHub/Blog/images/fayuan_logo.png";
+
+        DownloadUploadPic.download("http://ww1.sinaimg.cn/large/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg", path);
+    }
+
+    @Test
+    public void upload() throws Exception {
         String path = "/Users/chenjie/Documents/blog-img/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg";
 
         DownloadUploadPic.download("http://ww1.sinaimg.cn/large/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg", path);
@@ -19,7 +27,7 @@ public class DownloadPicTest {
         OkHttpClient httpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(30, TimeUnit.SECONDS)
                 .readTimeout(10, TimeUnit.SECONDS)
-                .writeTimeout(10,TimeUnit.SECONDS)
+                .writeTimeout(10, TimeUnit.SECONDS)
                 .retryOnConnectionFailure(true)
                 .build();
         RequestBody requestBody = new MultipartBody.Builder()
@@ -41,20 +49,20 @@ public class DownloadPicTest {
 
 
     @Test
-    public void str(){
+    public void str() {
         String path = "https://i.loli.net/2019/05/05/5ccef1ffd774f.jpg";
 
         int index = path.lastIndexOf("/");
-        path = path.substring(index +1) ;
+        path = path.substring(index + 1);
         System.out.println(path);
     }
 
     @Test
-    public void str2(){
+    public void str2() {
         String path = "/Users/chenjie/Documents/Hexo/source/_posts/distributed/distributed-discovery-zk.md";
 
         int index = path.lastIndexOf(System.getProperty("file.separator"));
-        path = path.substring(index +1) ;
+        path = path.substring(index + 1);
         System.out.println(path);
     }
 }

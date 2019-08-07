@@ -9,7 +9,7 @@ import top.crossoverjie.nows.nows.service.UploadPicService;
  * Date: 2019-05-12 15:35
  * @since JDK 1.8
  */
-public class TestUploadServiceImpl implements UploadPicService{
+public class TestUploadServiceImpl implements UploadPicService {
 
     @Override
     public String upload(String path) throws Exception {

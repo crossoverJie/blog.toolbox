@@ -6,17 +6,17 @@ import top.crossoverjie.nows.nows.filter.FilterProcess;
  * Function:
  *
  * @author crossoverJie
- *         Date: 2018/10/25 18:52
+ * Date: 2018/10/25 18:52
  * @since JDK 1.8
  */
-public class HttpFilterProcess implements FilterProcess{
+public class HttpFilterProcess implements FilterProcess {
 
 
     @Override
     public String process(String msg) {
 
-        msg = msg.replaceAll("^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+","");
+        msg = msg.replaceAll("^((https|http|ftp|rtsp|mms)?:\\/\\/)[^\\s]+", "");
 
-        return msg ;
+        return msg;
     }
 }

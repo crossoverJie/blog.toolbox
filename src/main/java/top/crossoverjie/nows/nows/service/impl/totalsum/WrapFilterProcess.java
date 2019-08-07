@@ -6,10 +6,10 @@ import top.crossoverjie.nows.nows.filter.FilterProcess;
  * Function:
  *
  * @author crossoverJie
- *         Date: 2018/10/25 18:52
+ * Date: 2018/10/25 18:52
  * @since JDK 1.8
  */
-public class WrapFilterProcess implements FilterProcess{
+public class WrapFilterProcess implements FilterProcess {
 
 
     @Override
@@ -17,6 +17,6 @@ public class WrapFilterProcess implements FilterProcess{
 
         msg = msg.replaceAll("\\s*", "");
 
-        return msg ;
+        return msg;
     }
 }
