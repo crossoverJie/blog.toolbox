@@ -2,7 +2,6 @@ package top.crossoverjie.nows.nows.config;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import okhttp3.OkHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,9 +31,6 @@ public class BeanConfig {
 
     @Value("${app.thread}")
     private int corePoolSize = 2;
-
-    @Autowired
-    private AppConfig appConfig;
 
     @Bean
     public ExecutorService sendMessageExecutor() {
