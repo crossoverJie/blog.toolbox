@@ -2,7 +2,6 @@ package top.crossoverjie.nows.nows.config;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import okhttp3.OkHttpClient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +12,12 @@ import top.crossoverjie.nows.nows.service.impl.fixpic.PicFilterProcess;
 import top.crossoverjie.nows.nows.service.impl.totalsum.HttpFilterProcess;
 import top.crossoverjie.nows.nows.service.impl.totalsum.WrapFilterProcess;
 
-import java.util.concurrent.*;
+import java.util.ServiceLoader;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Function:
@@ -27,9 +31,6 @@ public class BeanConfig {
 
     @Value("${app.thread}")
     private int corePoolSize = 2;
-
-    @Autowired
-    private AppConfig appConfig;
 
     @Bean
     public ExecutorService sendMessageExecutor() {
@@ -83,8 +84,11 @@ public class BeanConfig {
 
     @Bean("uploadPicService")
     public UploadPicService buildUploadBean() throws Exception {
-        String uploadWay = appConfig.getUploadWay();
-        UploadPicService uploadPicService = (UploadPicService) Class.forName(uploadWay).newInstance();
-        return uploadPicService;
+        ServiceLoader<UploadPicService> uploadPicServices = ServiceLoader.load(UploadPicService.class);
+        for (UploadPicService picService : uploadPicServices) {
+            return picService ;
+        }
+
+        return null ;
     }
 }
