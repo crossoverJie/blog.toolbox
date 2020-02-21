@@ -8,7 +8,7 @@
 
 ![](https://i.loli.net/2019/05/08/5cd1cd6062d2a.png)
 
-![](https://ws3.sinaimg.cn/large/006tNc79ly1g2ylkf37wyj30r10ion3f.jpg)
+![](https://i.loli.net/2019/05/08/5cd1d002b6cff.jpg)
 
 ```shell
 git clone https://github.com/crossoverJie/blog.toolbox
@@ -38,11 +38,9 @@ public class TestUploadServiceImpl implements UploadPicService{
 }
 ```
 
-返回一个上传地址即可；同时在启动应用时指定其上传策略：
+返回一个上传地址即可；同时根据 `SPI` 规范替换修改对应文件即可：
 
-```java
-java -jar blog.toolbox-0.0.2.jar /xxx/path 10 --app.model=2 --app.pic.upload.way=top.crossoverjie.nows.nows.service.impl.fixpic.upload.way.TestUploadServiceImpl
-```
+[META-INF/services/top.crossoverjie.nows.nows.service.UploadPicService](https://github.com/crossoverJie/blog.toolbox/blob/master/src/main/resources/META-INF/services/top.crossoverjie.nows.nows.service.UploadPicService)
 
 ### 备份模式
 
