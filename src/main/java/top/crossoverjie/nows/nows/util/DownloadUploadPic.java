@@ -83,7 +83,7 @@ public class DownloadUploadPic {
 
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
-                .addFormDataPart("smfile", "i", fileBody)
+                .addFormDataPart("smfile", fileName, fileBody)
                 .build();
 
         Request request = new Request.Builder()
