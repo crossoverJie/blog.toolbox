@@ -87,8 +87,9 @@ public class DownloadUploadPic {
                 .build();
 
         Request request = new Request.Builder()
-                .url("https://sm.ms/api/upload")
+                .url("https://sm.ms/api/v2/upload")
                 .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36")
+                .header("Authorization", "")
                 .post(requestBody)
                 .build();
 

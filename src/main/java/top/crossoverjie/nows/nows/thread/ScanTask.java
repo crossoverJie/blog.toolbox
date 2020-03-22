@@ -183,7 +183,7 @@ public class ScanTask implements Runnable {
                 logger.info("【上传[{}]图片成功,地址=[{}]】", pic, uploadAddress);
                 picMapping.put(pic,uploadAddress) ;
             } catch (Exception e) {
-                logger.error("上传图片失败 fileName=[{}]", path);
+                logger.error("上传图片失败 fileName=[{}],{}", path, e);
             }
 
         }
