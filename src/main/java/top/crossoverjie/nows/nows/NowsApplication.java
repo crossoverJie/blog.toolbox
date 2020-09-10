@@ -1,7 +1,6 @@
 package top.crossoverjie.nows.nows;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -32,14 +31,12 @@ import java.util.concurrent.TimeUnit;
  * 6. 上传成功，将原图片链接与新图床链接映射
  * 7. 替换当前文章的所有原图片链接
  * 8. 循环（执行第二个任务）
- *
+ * <p>
  * 备份模式只有1、2、3、4
  */
 @SpringBootApplication
+@Slf4j
 public class NowsApplication implements CommandLineRunner {
-
-
-    private static Logger logger = LoggerFactory.getLogger(NowsApplication.class);
 
     private AbstractFilterProcess filterProcessManager;
 
@@ -62,7 +59,6 @@ public class NowsApplication implements CommandLineRunner {
 
     public static void main(String[] args) {
         SpringApplication.run(NowsApplication.class, args);
-
     }
 
     @Override
@@ -85,7 +81,7 @@ public class NowsApplication implements CommandLineRunner {
         }
 
         Set<ScannerFile.FileInfo> allFile = scannerFile.getAllFile(strings[0]);
-        logger.info("allFile size = [{}]", allFile.size());
+        log.info("allFile size = [{}]", allFile.size());
         if (fileCount > allFile.size()) {
             fileCount = allFile.size();
         }
@@ -101,11 +97,10 @@ public class NowsApplication implements CommandLineRunner {
 
         executorService.shutdown();
         while (!executorService.awaitTermination(100, TimeUnit.MILLISECONDS)) {
-            //logger.info("worker running");
+            //log.info("worker running");
         }
 
         resultService.end();
-
 
     }
 }

@@ -13,11 +13,7 @@ import top.crossoverjie.nows.nows.service.impl.totalsum.HttpFilterProcess;
 import top.crossoverjie.nows.nows.service.impl.totalsum.WrapFilterProcess;
 
 import java.util.ServiceLoader;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadFactory;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 
 /**
  * Function:
@@ -48,7 +44,6 @@ public class BeanConfig {
     public FilterProcess httpFilterProcess() {
         return new HttpFilterProcess();
     }
-
 
     @Bean("numberFilterProcess")
     public FilterProcess numberFilterProcess() {
@@ -81,14 +76,13 @@ public class BeanConfig {
         return builder.build();
     }
 
-
     @Bean("uploadPicService")
     public UploadPicService buildUploadBean() throws Exception {
         ServiceLoader<UploadPicService> uploadPicServices = ServiceLoader.load(UploadPicService.class);
         for (UploadPicService picService : uploadPicServices) {
-            return picService ;
+            return picService;
         }
 
-        return null ;
+        return null;
     }
 }

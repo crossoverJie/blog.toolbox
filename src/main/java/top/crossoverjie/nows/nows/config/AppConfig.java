@@ -1,5 +1,6 @@
 package top.crossoverjie.nows.nows.config;
 
+import lombok.Getter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -11,19 +12,12 @@ import org.springframework.stereotype.Component;
  * @since JDK 1.8
  */
 @Component
+@Getter
 public class AppConfig {
     @Value("${app.model}")
-    private String appModel ;
+    private String appModel;
 
     @Value("${app.downLoad.path}")
-    private String downLoadPath ;
-
-    public String getAppModel() {
-        return appModel;
-    }
-
-    public String getDownLoadPath() {
-        return downLoadPath;
-    }
+    private String downLoadPath;
 
 }

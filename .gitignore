@@ -24,3 +24,7 @@ hs_err_pid*
 
 /.idea
 /blog.toolbox.iml
+
+# Maven
+log/
+target/

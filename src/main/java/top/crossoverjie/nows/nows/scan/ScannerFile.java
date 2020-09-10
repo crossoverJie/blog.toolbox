@@ -1,5 +1,8 @@
 package top.crossoverjie.nows.nows.scan;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -39,31 +42,12 @@ public class ScannerFile {
         return fileInfos;
     }
 
-
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public final class FileInfo implements Comparable<FileInfo> {
         private String filePath;
         private long modifyTime;
-
-        public FileInfo(String filePath, long modifyTime) {
-            this.filePath = filePath;
-            this.modifyTime = modifyTime;
-        }
-
-        public long getModifyTime() {
-            return modifyTime;
-        }
-
-        public void setModifyTime(long modifyTime) {
-            this.modifyTime = modifyTime;
-        }
-
-        public String getFilePath() {
-            return filePath;
-        }
-
-        public void setFilePath(String filePath) {
-            this.filePath = filePath;
-        }
 
         @Override
         public int compareTo(FileInfo info) {

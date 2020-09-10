@@ -1,5 +1,8 @@
 package top.crossoverjie.nows.nows.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Function:
  *
@@ -7,6 +10,8 @@ package top.crossoverjie.nows.nows.pojo;
  * Date: 2019-05-07 23:05
  * @since JDK 1.8
  */
+@Getter
+@Setter
 public class SMResponse {
 
     /**
@@ -17,22 +22,8 @@ public class SMResponse {
     private String code;
     private DataBean data;
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public DataBean getData() {
-        return data;
-    }
-
-    public void setData(DataBean data) {
-        this.data = data;
-    }
-
+    @Getter
+    @Setter
     public static class DataBean {
         /**
          * width : 1920
@@ -59,93 +50,5 @@ public class SMResponse {
         private String ip;
         private String url;
         private String delete;
-
-        public int getWidth() {
-            return width;
-        }
-
-        public void setWidth(int width) {
-            this.width = width;
-        }
-
-        public int getHeight() {
-            return height;
-        }
-
-        public void setHeight(int height) {
-            this.height = height;
-        }
-
-        public String getFilename() {
-            return filename;
-        }
-
-        public void setFilename(String filename) {
-            this.filename = filename;
-        }
-
-        public String getStorename() {
-            return storename;
-        }
-
-        public void setStorename(String storename) {
-            this.storename = storename;
-        }
-
-        public int getSize() {
-            return size;
-        }
-
-        public void setSize(int size) {
-            this.size = size;
-        }
-
-        public String getPath() {
-            return path;
-        }
-
-        public void setPath(String path) {
-            this.path = path;
-        }
-
-        public String getHash() {
-            return hash;
-        }
-
-        public void setHash(String hash) {
-            this.hash = hash;
-        }
-
-        public int getTimestamp() {
-            return timestamp;
-        }
-
-        public void setTimestamp(int timestamp) {
-            this.timestamp = timestamp;
-        }
-
-        public String getIp() {
-            return ip;
-        }
-
-        public void setIp(String ip) {
-            this.ip = ip;
-        }
-
-        public String getUrl() {
-            return url;
-        }
-
-        public void setUrl(String url) {
-            this.url = url;
-        }
-
-        public String getDelete() {
-            return delete;
-        }
-
-        public void setDelete(String delete) {
-            this.delete = delete;
-        }
     }
 }

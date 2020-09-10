@@ -1,7 +1,5 @@
 package top.crossoverjie.nows.nows.filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.crossoverjie.nows.nows.service.impl.totalsum.TotalWords;
@@ -20,7 +18,7 @@ import java.util.List;
  */
 @Service
 public class TotalSumFilterProcessManager extends AbstractFilterProcess {
-    private static Logger logger = LoggerFactory.getLogger(TotalSumFilterProcessManager.class);
+
     @Autowired
     private TotalWords totalWords;
 
@@ -58,7 +56,6 @@ public class TotalSumFilterProcessManager extends AbstractFilterProcess {
             msg = filterProcess.process(msg);
         }
         totalWords.sum(msg.toCharArray().length);
-        //logger.info("统计字数任务");
         return msg;
     }
 }

@@ -1,7 +1,6 @@
 package top.crossoverjie.nows.nows.service.impl.fixpic;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import top.crossoverjie.nows.nows.service.ResultService;
 
@@ -13,8 +12,8 @@ import top.crossoverjie.nows.nows.service.ResultService;
  * @since JDK 1.8
  */
 @Service
+@Slf4j
 public class PicResultServiceImpl implements ResultService {
-    private static Logger logger = LoggerFactory.getLogger(PicResultServiceImpl.class);
 
     private static final ThreadLocal<Long> TIME_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -25,6 +24,6 @@ public class PicResultServiceImpl implements ResultService {
     @Override
     public void end() {
         long end = System.currentTimeMillis();
-        logger.info("任务完成，耗时 [{}] ms", end - TIME_THREAD_LOCAL.get());
+        log.info("任务完成，耗时 [{}] ms", end - TIME_THREAD_LOCAL.get());
     }
 }

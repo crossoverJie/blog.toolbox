@@ -20,7 +20,7 @@ public class NowsApplicationTests {
 
     @Test
     public void recursiveFile() {
-		getFile("/Users/chenjie/Downloads/test");
+        getFile("/Users/chenjie/Downloads/test");
 //        getFile("E://Hexo//Blog//source//_posts");
         System.out.println("recursiveCount=" + recursiveCount);
     }

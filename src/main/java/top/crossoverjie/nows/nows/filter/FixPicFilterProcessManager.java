@@ -1,7 +1,5 @@
 package top.crossoverjie.nows.nows.filter;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.crossoverjie.nows.nows.config.AppConfig;
@@ -21,7 +19,6 @@ import java.util.List;
  */
 @Service
 public class FixPicFilterProcessManager extends AbstractFilterProcess {
-    private static Logger logger = LoggerFactory.getLogger(FixPicFilterProcessManager.class);
 
     @Resource(name = "picFilterProcess")
     private FilterProcess picFilterProcess;
@@ -65,6 +62,5 @@ public class FixPicFilterProcessManager extends AbstractFilterProcess {
         }
 
         return msg;
-        //logger.info("替换图片任务");
     }
 }

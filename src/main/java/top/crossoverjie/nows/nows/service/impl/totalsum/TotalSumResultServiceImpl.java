@@ -1,7 +1,6 @@
 package top.crossoverjie.nows.nows.service.impl.totalsum;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.crossoverjie.nows.nows.service.ResultService;
@@ -14,8 +13,8 @@ import top.crossoverjie.nows.nows.service.ResultService;
  * @since JDK 1.8
  */
 @Service
+@Slf4j
 public class TotalSumResultServiceImpl implements ResultService {
-    private static Logger logger = LoggerFactory.getLogger(TotalSumResultServiceImpl.class);
 
     private static final ThreadLocal<Long> TIME_THREAD_LOCAL = new ThreadLocal<>();
 
@@ -30,6 +29,6 @@ public class TotalSumResultServiceImpl implements ResultService {
     public void end() {
         long total = totalWords.total();
         long end = System.currentTimeMillis();
-        logger.info("total sum=[{}],[{}] ms", total, end - TIME_THREAD_LOCAL.get());
+        log.info("total sum=[{}],[{}] ms", total, end - TIME_THREAD_LOCAL.get());
     }
 }
