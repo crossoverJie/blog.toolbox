@@ -20,4 +20,7 @@ public class AppConfig {
     @Value("${app.downLoad.path}")
     private String downLoadPath;
 
+    @Value("${app.markdown.path}")
+    private String markdownPath;
+
 }

@@ -76,11 +76,19 @@ public class NowsApplication implements CommandLineRunner {
         } else {
             filterProcessManager = SpringBeanFactory.getBean(FixPicFilterProcessManager.class);
             resultService = SpringBeanFactory.getBean(PicResultServiceImpl.class);
-            fileCount = Integer.parseInt(strings[1]);
+
+            fileCount = strings.length > 1 ? Integer.parseInt(strings[1]) : fileCount;
+
             ((PicResultServiceImpl) resultService).setCurrentTime();
         }
 
-        Set<ScannerFile.FileInfo> allFile = scannerFile.getAllFile(strings[0]);
+        // 本地markdown路径
+        String markdownPath = config.getMarkdownPath();
+        if (strings.length > 0) {
+            markdownPath = strings[0];
+        }
+        Set<ScannerFile.FileInfo> allFile = scannerFile.getAllFile(markdownPath);
+
         log.info("allFile size = [{}]", allFile.size());
         if (fileCount > allFile.size()) {
             fileCount = allFile.size();
