@@ -1,5 +1,7 @@
 # 博客工具箱
 
+[命令行工具版。](https://github.com/crossoverJie/btb)
+
 ## 批量替换图床
 
 ### 使用
