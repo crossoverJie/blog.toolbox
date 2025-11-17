@@ -18,7 +18,7 @@ public class NowsApplicationTests {
         System.out.println(https);
     }
 
-    @Test
+    //@Test
     public void recursiveFile() {
 		getFile("/Users/chenjie/Downloads/test");
 //        getFile("E://Hexo//Blog//source//_posts");

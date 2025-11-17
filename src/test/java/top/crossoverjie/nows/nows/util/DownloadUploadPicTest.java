@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
 
 public class DownloadUploadPicTest {
 
-    @Test
+    //@Test
     public void download() throws Exception {
 
         String path = "/Users/chenjie/Documents/blog-img/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg";
@@ -17,7 +17,7 @@ public class DownloadUploadPicTest {
         DownloadUploadPic.download("http://ww1.sinaimg.cn/large/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg", path);
     }
 
-    @Test
+    //@Test
     public void upload() throws Exception {
         String path = "/Users/chenjie/Documents/blog-img/006tNc79ly1g36zsmm4yvj30yg0h8n27.jpg";
 
