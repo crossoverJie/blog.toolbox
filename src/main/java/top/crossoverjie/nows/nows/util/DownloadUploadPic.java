@@ -45,6 +45,8 @@ public class DownloadUploadPic {
         try {
             url = new URL(urlString);
             URLConnection con = url.openConnection();
+            con.setRequestProperty("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36");
+
             // 输入流
             is = con.getInputStream();
             // 1K的数据缓冲
@@ -89,7 +91,7 @@ public class DownloadUploadPic {
         Request request = new Request.Builder()
                 .url("https://sm.ms/api/v2/upload")
                 .header("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36")
-                .header("Authorization", "")
+                .header("Authorization", "mMRzVXAST9OY5kRhLQTdzPmgVHoFPqeY")
                 .post(requestBody)
                 .build();
 
